@@ -35,7 +35,9 @@ function responsive_menus_admin_form($form, &$form_state) {
   $form['responsive_menus_style'] = array(
     '#type' => 'select',
     '#title' => t('Responsive menu style'),
-    '#options' => array('responsive_menus_simple' => 'Simple 3-bar (☰) expanding'),
+    '#options' => array(
+      'responsive_menus_simple' => t("Simple 3-bar (!bars) expanding.", array('!bars' => '☰')),
+    ),
     '#description' => '<small>More options to come.  Submit your suggestions!</small>',
   );
   $form['responsive_menus_media_size'] = array(

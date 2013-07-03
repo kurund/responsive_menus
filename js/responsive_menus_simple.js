@@ -8,7 +8,9 @@
   Drupal.behaviors.responsive_menus = {
     attach: function (context, settings) {
       settings.responsive_menus = settings.responsive_menus || {};
-      if (!settings.responsive_menus.css_selectors.length) return;
+      if (!settings.responsive_menus.css_selectors.length) {
+        return;
+      }
       if (!settings.responsive_menus.media_size.length) {
         settings.responsive_menus.media_size = 768;
       }
@@ -40,4 +42,3 @@
   };
 
 }(jQuery));
-
