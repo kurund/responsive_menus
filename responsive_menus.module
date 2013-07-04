@@ -46,6 +46,11 @@ function responsive_menus_admin_form($form, &$form_state) {
     '#default_value' => variable_get('responsive_menus_media_size', 768),
     '#description' => 'Width in pixels when we swap out responsive menu e.g. 768',
   );
+  $form['responsive_menus_ignore_admin'] = array(
+    '#type' => 'checkboxes',
+    '#options' => array(1 => t('Ignore admin pages?')),
+    '#default_value' => variable_get('responsive_menus_ignore_admin', array(1 => 1)),
+  );
 
   return system_settings_form($form);
 }
@@ -76,6 +81,10 @@ function responsive_menus_build_selectors() {
  * Implements hook_init().
  */
 function responsive_menus_init() {
+  $ignore_admin = variable_get('responsive_menus_ignore_admin', array(1 => 1));
+  if ($ignore_admin[1] && path_is_admin(current_path())) {
+    return;
+  }
   $style = variable_get('responsive_menus_style', 'responsive_menus_simple');
   $js_settings = array();
   // @todo Will do libraries lookup later when other responsive styles added.
