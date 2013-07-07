@@ -22,7 +22,7 @@
   border-bottom-right-radius: 0;
 }
 
-.responsive-menus.responsified ul.responsive-menus-simple {
+.responsive-menus.responsified .responsive-menus-simple {
   display: none;
   width: 100%;
   background: #333;
@@ -32,7 +32,7 @@
   box-shadow: 2px 2px 2px #000;
 }
 
-.responsive-menus.responsified.responsive-toggled ul.responsive-menus-simple {
+.responsive-menus.responsified.responsive-toggled .responsive-menus-simple {
   display: block;
 }
 
