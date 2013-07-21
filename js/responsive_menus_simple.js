@@ -15,7 +15,7 @@
   Drupal.behaviors.responsive_menus = {
     attach: function (context, settings) {
       settings.responsive_menus = settings.responsive_menus || {};
-      if (!settings.responsive_menus.css_selectors.length) {
+      if (!settings.responsive_menus.selectors.length) {
         return;
       }
       if (!settings.responsive_menus.media_size.length) {
@@ -23,9 +23,10 @@
       }
       // Handle clicks & toggling.
       var toggler_class = '';
+      var toggler_text = settings.responsive_menus.toggler_text;
       $('.responsive-menus .toggler').unbind('click');
       // Iterate through our selectors.
-      $.each(settings.responsive_menus.css_selectors, function(index, value) {
+      $.each(settings.responsive_menus.selectors, function(index, value) {
         if ($(value).length > 1) {
           // Handle nested menus.  Make sure we get the first, but not children.
           $(value).each(function(val_index) {
@@ -33,7 +34,7 @@
               if (!$(this).hasClass('responsive-menus-simple')) {
                 toggler_class = 'responsive-menus-' + index + '-' + val_index;
                 $(this).addClass('responsive-menus-simple').wrap('<div class="responsive-menus ' + toggler_class + '" />');
-                $('.' + toggler_class).prepend('<span class="toggler">&#9776;</span>');
+                $('.' + toggler_class).prepend('<span class="toggler">' + toggler_text + '</span>');
               }
             }
           });
@@ -43,7 +44,7 @@
           if (!$(value).hasClass('responsive-menus-simple')) {
             toggler_class = 'responsive-menus-' + index;
             $(value).addClass('responsive-menus-simple').wrap('<div class="responsive-menus ' + toggler_class + '" />');
-            $('.' + toggler_class).prepend('<span class="toggler">&#9776;</span>');
+            $('.' + toggler_class).prepend('<span class="toggler">' + toggler_text + '</span>');
           }
         }
       });
