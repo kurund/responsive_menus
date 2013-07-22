@@ -36,6 +36,11 @@
   display: block;
 }
 
+.responsive-menus.responsified.responsive-toggled .responsive-menus-simple.absolute {
+  position: absolute;
+  z-index: 999;
+}
+
 .responsive-menus.responsified ul.responsive-menus-simple li {
   width: 100%;
   display: block;

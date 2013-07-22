@@ -57,7 +57,7 @@ function responsive_menus_admin_form($form, &$form_state) {
   foreach ($styles as $style => $values) {
     $style_options[$style] = $values['name'];
   }
-  // Get style settings form elements from ajax or currently set style.
+  // Get style settings form elements from ajax or the currently enabled style.
   if (!empty($form_state['values']['responsive_menus_style'])) {
     $current_style = $form_state['values']['responsive_menus_style'];
   }
@@ -77,7 +77,6 @@ function responsive_menus_admin_form($form, &$form_state) {
       'effect' => 'fade',
     ),
   );
-
   $form['responsive_menus_style_settings'] = array(
     '#title' => t('Style settings'),
     '#description' => t('Settings for chosen menu style.'),
@@ -86,7 +85,7 @@ function responsive_menus_admin_form($form, &$form_state) {
     '#type' => 'fieldset',
     '#tree' => TRUE,
   );
-
+  // Build additional style settings from style plugins.
   if (!empty($styles[$current_style]['form']) && function_exists($styles[$current_style]['form'])) {
     $styles_function = $styles[$current_style]['form'];
     foreach ($styles_function() as $name => $element) {
@@ -142,7 +141,7 @@ function responsive_menus_admin_form_submit($form, &$form_state) {
     }
   }
 
-  drupal_set_message(t('The configuration options have been savedz.'));
+  drupal_set_message(t('The configuration options have been saved.'));
 }
 
 /**
@@ -177,34 +176,6 @@ function responsive_menus_style_load($style) {
 }
 
 /**
- * Example implementation of hook_responsive_menus_style_info().
- *
- * You can use js/css_folder to load a whole directory's files, or
- * js/css_files to load individual files.
- *
- * The parameters 'form' & 'js_settings' are callbacks to functions.
- */
-function hook_responsive_menus_style_info() {
-  $path = drupal_get_path('module', 'responsive_menus');
-  $styles = array(
-    'example_style' => array(
-      'name' => t('Example Responsive Menus style'),
-      'form' => 'example_style_settings',
-      'js_folder' => drupal_get_path('module', 'responsive_menus') . '/js',
-      'css_folder' => drupal_get_path('module', 'responsive_menus') . '/css',
-      'js_files' => array(
-        $path . '/js/example1.js',
-        $path . '/js/example2.js'
-      ),
-      'css_files' => array($path . '/css/example.css'),
-      'js_settings' => 'example_style_js_settings',
-    ),
-  );
-
-  return $styles;
-}
-
-/**
  * Implements hook_responsive_menus_style_info().
  */
 function responsive_menus_responsive_menus_style_info() {
@@ -229,6 +200,12 @@ function responsive_menus_responsive_menus_style_info() {
  *   Drupal FAPI formatted array.
  */
 function responsive_menus_simple_style_settings() {
+  $form['responsive_menus_simple_absolute'] = array(
+    '#type' => 'checkboxes',
+    '#options' => array(1 => t('Use absolute positioning?')),
+    '#default_value' => variable_get('responsive_menus_simple_absolute', array(1 => 1)),
+    '#description' => t('Using absolute, the menu will open over the page rather than pushing it down.'),
+  );
   $form['responsive_menus_css_selectors'] = array(
     '#type' => 'textarea',
     '#title' => t('CSS selectors for which menus to responsify'),
@@ -236,8 +213,8 @@ function responsive_menus_simple_style_settings() {
     '#description' => 'Enter CSS selectors of menus to responsify.  Comma separated or 1 per line',
   );
   $form['responsive_menus_simple_text'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Text to display for menu toggle button'),
+    '#type' => 'textarea',
+    '#title' => t('Text or HTML for the menu toggle button'),
     '#default_value' => variable_get('responsive_menus_simple_text', '☰ Menu'),
   );
   $form['responsive_menus_media_size'] = array(
@@ -279,6 +256,10 @@ function responsive_menus_simple_style_js_settings() {
   $js_settings['toggler_text'] = variable_get('responsive_menus_simple_text', '☰ Menu');
   $js_settings['selectors'] = responsive_menus_build_selectors();
   $js_settings['media_size'] = variable_get('responsive_menus_media_size', 768);
+  $absolute = variable_get('responsive_menus_simple_absolute', array(1 => 1));
+  if ($absolute[1]) {
+    $js_settings['absolute'] = TRUE;
+  }
 
   return $js_settings;
 }

@@ -50,6 +50,10 @@
       });
       // Re-bind click function.  This handles ajax events.
       $('.responsive-menus .toggler').bind('click', toggler_click);
+      // Use absolute positioning.
+      if (settings.responsive_menus.absolute) {
+        $('.responsive-menus-simple').addClass('absolute');
+      }
       // Adjustable width instead of @media queries.
       if (window.innerWidth < settings.responsive_menus.media_size) {
         $('.responsive-menus').addClass('responsified');
