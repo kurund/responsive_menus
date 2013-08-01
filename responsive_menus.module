@@ -27,7 +27,7 @@ function responsive_menus_menu() {
  */
 function responsive_menus_permission() {
   return array(
-    'administer responsive menus' =>  array(
+    'administer responsive menus' => array(
       'title' => t('Administer Responsive Menus'),
       'description' => t('Configure settings for responsive menus module.'),
     ),
@@ -42,6 +42,7 @@ function responsive_menus_help($path, $arg) {
     // On the help overview page.
     case 'admin/help#responsive_menus':
       return '<p>' . t('Responsify your menus! Using any jQuery compatible selector, make elements mobile friendly. Technically you could use this on more than menus... The <a href="@admin">administration page</a> provides settings to control which menus to control, what screen size to react to, and a few other options.', array('@admin' => url('admin/config/user-interface/responsive_menus'))) . '</p>';
+
     // On the admin settings page.
     case 'admin/config/user-interface/responsive_menus':
       return '<p>' . t('This page provides configuration options for responsive menus. You may configure any amount of menus to respond to any screen size by simply adding a jQuery compatible selector to the list below. There is also an option to ignore admin pages where you might not want responsive menus.') . '</p>';
@@ -67,10 +68,10 @@ function responsive_menus_admin_form($form, &$form_state) {
   // Some friendly reminders about jQuery 1.7+ requirements of Mean Menus.
   if ($current_style == 'mean_menu') {
     if (!module_exists('jquery_update')) {
-      drupal_set_message(t('Mean Menu style requires !link set to version 1.7 or higher.',  array('!link' => l(t('jQuery Update'), 'http://drupal.org/project/jquery_update'))), 'warning');
+      drupal_set_message(t('Mean Menu style requires !link set to version 1.7 or higher.', array('!link' => l(t('jQuery Update'), 'http://drupal.org/project/jquery_update'))), 'warning');
     }
     elseif (variable_get('jquery_update_jquery_version', 1.5) < 1.7) {
-      drupal_set_message(t('Mean Menu style requires !link set to version 1.7 or higher.',  array('!link' => l(t('jQuery Update'), 'admin/config/development/jquery_update', array('query' => array('destination' => $_GET['q']))))), 'warning');
+      drupal_set_message(t('Mean Menu style requires !link set to version 1.7 or higher.', array('!link' => l(t('jQuery Update'), 'admin/config/development/jquery_update', array('query' => array('destination' => $_GET['q']))))), 'warning');
     }
   }
 
@@ -282,9 +283,9 @@ function responsive_menus_mean_menu_style_settings() {
     '#type' => 'select',
     '#title' => t('Position of the open/close buttons'),
     '#options' => array(
-      'right' => 'right',
-      'left' => 'left',
-      'center' => 'center',
+      'right' => t('right'),
+      'left' => t('left'),
+      'center' => t('center'),
     ),
     '#default_value' => variable_get('responsive_menus_mean_menu_position', 'right'),
   );
@@ -299,8 +300,8 @@ function responsive_menus_mean_menu_style_settings() {
     '#type' => 'select',
     '#title' => t('Allow multi-level menus'),
     '#options' => array(
-      1 => 'Yes',
-      0 => 'No',
+      1 => t('Yes'),
+      0 => t('No'),
     ),
     '#default_value' => variable_get('responsive_menus_mean_menu_show_children', 1),
   );
@@ -308,8 +309,8 @@ function responsive_menus_mean_menu_style_settings() {
     '#type' => 'select',
     '#title' => t('Ability to expand & collapse children'),
     '#options' => array(
-      1 => 'Yes',
-      0 => 'No',
+      1 => t('Yes'),
+      0 => t('No'),
     ),
     '#default_value' => variable_get('responsive_menus_mean_menu_expand_children', 1),
   );
@@ -329,8 +330,8 @@ function responsive_menus_mean_menu_style_settings() {
     '#type' => 'select',
     '#title' => t('Temporarily remove other classes & IDs (Recommended)'),
     '#options' => array(
-      1 => 'Yes',
-      0 => 'No',
+      1 => t('Yes'),
+      0 => t('No'),
     ),
     '#default_value' => variable_get('responsive_menus_mean_menu_remove_attrs', 1),
     '#description' => 'This will help ensure the style of Mean Menus.',
@@ -424,7 +425,7 @@ function responsive_menus_glob_recursive($directory, &$directories = array()) {
 function responsive_menus_glob_files($directory, $extension) {
   responsive_menus_glob_recursive($directory, $directories);
   $files = array();
-  foreach($directories as $key => $directory) {
+  foreach ($directories as $key => $directory) {
     $files = array_merge($files, glob("{$directory}/*.{$extension}"));
   }
 

@@ -14,7 +14,7 @@
  * To add a new style to Responsive Menus, you are most likely creating at least
  * 3 functions:
  * hook_responsive_menus_style_info().
- * A style_settings_form() callback to add form elements to Responsive Menu's admin form.
+ * A form name callback to add form elements to Responsive Menu's admin form.
  * A js_settings() callback to pass extra variables to javascript.
  *
  * Explained below.
@@ -47,7 +47,7 @@ function hook_responsive_menus_style_info() {
       'css_folder' => drupal_get_path('module', 'responsive_menus') . '/css',
       'js_files' => array(
         $path . '/js/example1.js',
-        $path . '/js/example2.js'
+        $path . '/js/example2.js',
       ),
       'css_files' => array($path . '/css/example.css'),
       'js_settings' => 'example_style_js_settings',
