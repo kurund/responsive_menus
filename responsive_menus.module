@@ -50,6 +50,50 @@ function responsive_menus_help($path, $arg) {
 }
 
 /**
+ * Implements hook_ctools_plugin_api().
+ */
+function responsive_menus_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function responsive_menus_context_registry() {
+  $registry = array();
+
+  $registry['reactions'] = array(
+    'responsive_menus_general' => array(
+      'title' => t('Responsive Menus'),
+      'description' => t('Add & configure a Responsive Menus module reaction.'),
+      'plugin' => 'responsive_menus_context_reaction_general'
+    ),
+  );
+
+  return $registry;
+}
+
+/**
+ * Implements hook_context_plugins().
+ */
+function responsive_menus_context_plugins() {
+  $plugins = array();
+
+  $plugins['responsive_menus_context_reaction_general'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'responsive_menus') . '/plugins/context',
+      'file' => 'responsive_menus_context_reaction_general.inc',
+      'class' => 'responsive_menus_context_reaction_general',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
  * Admin settings form for which menus to responsify.
  */
 function responsive_menus_admin_form($form, &$form_state) {
@@ -343,12 +387,13 @@ function responsive_menus_mean_menu_style_settings() {
 /**
  * Callback from hook_responsive_menus_style_info() for JS settings to pass.
  */
-function responsive_menus_simple_style_js_settings() {
+function responsive_menus_simple_style_js_settings($js_defaults = array()) {
   $js_settings = array();
-  $js_settings['toggler_text'] = variable_get('responsive_menus_simple_text', '☰ Menu');
-  $js_settings['selectors'] = responsive_menus_build_selectors('responsive_menus_css_selectors');
-  $js_settings['media_size'] = variable_get('responsive_menus_media_size', 768);
-  $absolute = variable_get('responsive_menus_simple_absolute', array(1 => 1));
+
+  $js_settings['toggler_text'] = responsive_menus_var_get('responsive_menus_simple_text', '☰ Menu', $js_defaults);
+  $js_settings['selectors'] = responsive_menus_build_selectors('responsive_menus_css_selectors', $js_defaults);
+  $js_settings['media_size'] = responsive_menus_var_get('responsive_menus_media_size', 768, $js_defaults);
+  $absolute = responsive_menus_var_get('responsive_menus_simple_absolute', array(1 => 1), $js_defaults);
   if ($absolute[1]) {
     $js_settings['absolute'] = TRUE;
   }
@@ -359,21 +404,39 @@ function responsive_menus_simple_style_js_settings() {
 /**
  * Callback from hook_responsive_menus_style_info() for JS settings to pass.
  */
-function responsive_menus_mean_menu_style_js_settings() {
+function responsive_menus_mean_menu_style_js_settings($js_defaults = array()) {
   $js_settings = array();
-  $js_settings['selectors'] = variable_get('responsive_menus_mean_menu_css_selectors', '.main-menu');
-  $js_settings['trigger_txt'] = variable_get('responsive_menus_mean_menu_trigger_txt', '<span /><span /><span />');
-  $js_settings['close_txt'] = variable_get('responsive_menus_mean_menu_close_txt', 'X');
-  $js_settings['close_size'] = variable_get('responsive_menus_mean_menu_close_size', '18px');
-  $js_settings['position'] = variable_get('responsive_menus_mean_menu_position', 'right');
-  $js_settings['media_size'] = variable_get('responsive_menus_mean_menu_media_size', 480);
-  $js_settings['show_children'] = variable_get('responsive_menus_mean_menu_show_children', 1);
-  $js_settings['expand_children'] = variable_get('responsive_menus_mean_menu_expand_children', 1);
-  $js_settings['expand_txt'] = variable_get('responsive_menus_mean_menu_expand_txt', '+');
-  $js_settings['contract_txt'] = variable_get('responsive_menus_mean_menu_contract_txt', '-');
-  $js_settings['remove_attrs'] = variable_get('responsive_menus_mean_menu_remove_attrs', 1);
+
+  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_mean_menu_css_selectors', '.main-menu', $js_defaults);
+  $js_settings['trigger_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_trigger_txt', '<span /><span /><span />', $js_defaults);
+  $js_settings['close_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_close_txt', 'X', $js_defaults);
+  $js_settings['close_size'] = responsive_menus_var_get('responsive_menus_mean_menu_close_size', '18px', $js_defaults);
+  $js_settings['position'] = responsive_menus_var_get('responsive_menus_mean_menu_position', 'right', $js_defaults);
+  $js_settings['media_size'] = responsive_menus_var_get('responsive_menus_mean_menu_media_size', 480, $js_defaults);
+  $js_settings['show_children'] = responsive_menus_var_get('responsive_menus_mean_menu_show_children', 1, $js_defaults);
+  $js_settings['expand_children'] = responsive_menus_var_get('responsive_menus_mean_menu_expand_children', 1, $js_defaults);
+  $js_settings['expand_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_expand_txt', '+', $js_defaults);
+  $js_settings['contract_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_contract_txt', '-', $js_defaults);
+  $js_settings['remove_attrs'] = responsive_menus_var_get('responsive_menus_mean_menu_remove_attrs', 1, $js_defaults);
 
   return $js_settings;
+}
+
+/**
+ * Slight modification of variable_get for context and other usage.
+ *
+ * @param string $name
+ *   Name of the variable.
+ * @param mixed $default
+ *   The variable's default fallback value.
+ * @param array $rm_defaults
+ *   The array of values that context (and possibly others) will pass.
+ */
+function responsive_menus_var_get($name, $default, $rm_defaults = array()) {
+  if (!empty($rm_defaults) && !empty($rm_defaults[$name])) {
+    return $rm_defaults[$name];
+  }
+  return variable_get($name, $default);
 }
 
 /**
@@ -382,8 +445,8 @@ function responsive_menus_mean_menu_style_js_settings() {
  * @return array
  *   Array of settings to pass with drupal_add_js().
  */
-function responsive_menus_build_selectors($style_var) {
-  $selectors = variable_get($style_var, '.main-menu');
+function responsive_menus_build_selectors($style_var, $js_defaults = array()) {
+  $selectors = responsive_menus_var_get($style_var, '.main-menu', $js_defaults);
   $delimiter = ', ';
   // Strip out carriage returns.
   $selectors = str_replace("\r", '', $selectors);
@@ -433,16 +496,37 @@ function responsive_menus_glob_files($directory, $extension) {
 }
 
 /**
- * Implements hook_init().
+ * Implements hook_page_build().
  */
-function responsive_menus_init() {
-  $ignore_admin = variable_get('responsive_menus_ignore_admin', array(1 => 1));
-  if ($ignore_admin[1] && path_is_admin(current_path())) {
-    return;
+function responsive_menus_page_build(&$page) {
+  // Context rules.
+  if (module_exists('context')) {
+    if ($plugin = context_get_plugin('reaction', 'responsive_menus_general')) {
+      $plugin->execute($vars);
+    }
   }
+  // Non-context additions.
+  responsive_menus_execute();
+}
+
+/**
+ * Final execution for Responsive Menus.  Add any js/css and settings required.
+ */
+function responsive_menus_execute($style = NULL, $js_defaults = array()) {
   // Load our style.
-  $style = variable_get('responsive_menus_style', 'responsive_menus_simple');
+  if (!isset($style)) {
+    $ignore_admin = variable_get('responsive_menus_ignore_admin', array(1 => 1));
+    if ($ignore_admin[1] && path_is_admin(current_path())) {
+      return;
+    }
+    $style = variable_get('responsive_menus_style', 'responsive_menus_simple');
+  }
   $style_info = responsive_menus_style_load($style);
+  $data = &drupal_static(__FUNCTION__, array());
+  if (!isset($data['execute_index'])) {
+    $data['execute_index'] = -1;
+  }
+  $data['execute_index']++;
 
   $js_settings = array();
   $js_files = array();
@@ -476,7 +560,8 @@ function responsive_menus_init() {
     }
   }
   // Add JS settings.
-  $js_settings = $style_info['js_settings']();
-  drupal_alter('responsive_menus_init', $js_settings);
+  $js_settings[$data['execute_index']] = $style_info['js_settings']($js_defaults);
+  $js_settings[$data['execute_index']]['responsive_menus_style'] = $style;
+  drupal_alter('responsive_menus_execute', $js_settings);
   drupal_add_js(array('responsive_menus' => $js_settings), 'setting');
 }
