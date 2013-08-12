@@ -14,14 +14,16 @@
     attach: function (context, settings) {
       settings.responsive_menus = settings.responsive_menus || {};
       // Bind once.
+      $('.responsive-menus .toggler').unbind('click');
+      // Window width with legacy browsers.
+      var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
       $('body').once('responsive-menus-load', function(){
-        $('.responsive-menus .toggler').unbind('click');
         $.each(settings.responsive_menus, function(ind, iteration) {
           if (iteration.responsive_menus_style != 'responsive_menus_simple') {
             return true;
           }
           if (!iteration.selectors.length) {
-            return;
+            return true;
           }
           if (!iteration.media_size.length) {
             iteration.media_size = 768;
@@ -44,6 +46,10 @@
                     if (iteration.absolute) {
                       $('.' + toggler_class).addClass('absolute');
                     }
+                    // Handle first size check.
+                    if (windowWidth < iteration.media_size) {
+                      $('.' + toggler_class).addClass('responsified');
+                    }
                   }
                 }
               });
@@ -59,29 +65,29 @@
                 if (iteration.absolute) {
                   $('.' + toggler_class).addClass('absolute');
                 }
+                // Handle first size check.
+                if (windowWidth < iteration.media_size) {
+                  $('.' + toggler_class).addClass('responsified');
+                }
               }
             }
           });
-          // Adjustable width instead of @media queries.
-          $('.responsive-menus').each(function(){
-            if (window.innerWidth < $(this).data('mediasize')) {
+       });
+        // Handle window resizing.
+        $(window).resize(function() {
+          // Window width with legacy browsers.
+          windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+          $('.responsive-menus').each(function(menuIndex, menuValue){
+            mediasize = $(this).data('mediasize') || 768;
+            if (windowWidth > mediasize) {
+              $(this).removeClass('responsified');
+            }
+            if (windowWidth < mediasize) {
               $(this).addClass('responsified');
             }
           });
-          // Handle window resizing.
-          $(window).resize(function() {
-            $('.responsive-menus').each(function(){
-              if (window.innerWidth > $(this).data('mediasize')) {
-                $(this).removeClass('responsified');
-              }
-              if (window.innerWidth < $(this).data('mediasize')) {
-                $(this).addClass('responsified');
-              }
-            });
-          });
         });
       });
-
     }
   };
 
