@@ -270,9 +270,21 @@ function responsive_menus_simple_style_settings() {
     '#default_value' => variable_get('responsive_menus_simple_absolute', array(1 => 1)),
     '#description' => t('Using absolute, the menu will open over the page rather than pushing it down.'),
   );
+  $form['responsive_menus_disable_mouse_events'] = array(
+    '#type' => 'checkboxes',
+    '#options' => array(1 => t('Disable other mouse events?')),
+    '#default_value' => variable_get('responsive_menus_disable_mouse_events', array(1 => 1)),
+    '#description' => t('Disable things like drop-down menus on hover.'),
+  );
+  $form['responsive_menus_remove_attributes'] = array(
+    '#type' => 'checkboxes',
+    '#options' => array(1 => t('Remove other classes & IDs when responded?')),
+    '#default_value' => variable_get('responsive_menus_remove_attributes', array(1 => 1)),
+    '#description' => t('Helps to ensure styling of menu.'),
+  );
   $form['responsive_menus_css_selectors'] = array(
     '#type' => 'textarea',
-    '#title' => t('CSS selectors for which menus to responsify'),
+    '#title' => t('Selectors for which menus to responsify'),
     '#default_value' => variable_get('responsive_menus_css_selectors', '.main-menu'),
     '#description' => 'Enter CSS/jQuery selectors of menus to responsify.  Comma separated or 1 per line',
   );
@@ -394,8 +406,16 @@ function responsive_menus_simple_style_js_settings($js_defaults = array()) {
   $js_settings['selectors'] = responsive_menus_build_selectors('responsive_menus_css_selectors', $js_defaults);
   $js_settings['media_size'] = responsive_menus_var_get('responsive_menus_media_size', 768, $js_defaults);
   $absolute = responsive_menus_var_get('responsive_menus_simple_absolute', array(1 => 1), $js_defaults);
+  $disable_mouse = responsive_menus_var_get('responsive_menus_disable_mouse_events', array(1 => 1), $js_defaults);
+  $remove_attributes = responsive_menus_var_get('responsive_menus_remove_attributes', array(1 => 1), $js_defaults);
   if ($absolute[1]) {
     $js_settings['absolute'] = TRUE;
+  }
+  if ($disable_mouse[1]) {
+    $js_settings['disable_mouse_events'] = TRUE;
+  }
+  if ($remove_attributes[1]) {
+    $js_settings['remove_attributes'] = TRUE;
   }
 
   return $js_settings;
