@@ -68,6 +68,7 @@
                     $('.' + toggler_class + ' .toggler').bind('click', toggler_click);
                     // Unbind other mouse events.
                     if (iteration.disable_mouse_events) {
+                      //$(this).data('disablemouse', true);
                       remove_mouse_events($(this));
                     }
                     // Use absolute positioning.
@@ -102,6 +103,10 @@
                 $('.' + toggler_class + ' .toggler').bind('click', toggler_click);
                 // Unbind other mouse events.
                 if (iteration.disable_mouse_events) {
+                  // @todo For rebinding mouse events.
+                  /*if ($(value + ' li a').data('events')) {
+                    $(value).data('tmpevents', $(value + ' li a').data('events'));
+                  }*/
                   remove_mouse_events(value);
                 }
                 // Use absolute positioning.

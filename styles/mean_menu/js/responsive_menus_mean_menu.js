@@ -16,16 +16,16 @@
         // Call meanmenu() with our custom settings.
         $(iteration.selectors).once('responsive-menus-mean-menu', function() {
           $(this).meanmenu({
-            meanMenuClose: settings.responsive_menus.close_txt || "X",
-            meanMenuCloseSize: settings.responsive_menus.close_size || "18px",
-            meanMenuOpen: settings.responsive_menus.trigger_txt || "<span /><span /><span />",
-            meanRevealPosition: settings.responsive_menus.position || "right",
-            meanScreenWidth: settings.responsive_menus.media_size || "480",
-            meanShowChildren: settings.responsive_menus.show_children || true,
-            meanExpandableChildren: settings.responsive_menus.expand_children || true,
-            meanExpand: settings.responsive_menus.expand_txt || "+",
-            meanContract: settings.responsive_menus.contract_txt || "-",
-            meanRemoveAttrs: settings.responsive_menus.remove_attrs || true
+            meanMenuClose: iteration.close_txt || "X",
+            meanMenuCloseSize: iteration.close_size || "18px",
+            meanMenuOpen: iteration.trigger_txt || "<span /><span /><span />",
+            meanRevealPosition: iteration.position || "right",
+            meanScreenWidth: iteration.media_size || "480",
+            meanShowChildren: iteration.show_children || true,
+            meanExpandableChildren: iteration.expand_children || true,
+            meanExpand: iteration.expand_txt || "+",
+            meanContract: iteration.contract_txt || "-",
+            meanRemoveAttrs: iteration.remove_attrs || true
           });
         });
       });
