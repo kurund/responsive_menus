@@ -29,13 +29,16 @@
  * The parameters 'form' & 'js_settings' are callbacks to functions.
  *
  * Params when declaring hook_responsive_menus_style_info():
- * name        :string: Name displayed when choosing style.
- * form        :string: Drupal FAPI callback for admin form.
- * js_folder   :string: Folder to recursively include .js files from.
- * css_folder  :string: Folder to recursively include .css files from.
- * js_files    :array:  Individual JS files to include.
- * css_files   :array:  Individual CSS files to include.
- * js_settings :string: Function to generate settings to pass to JS.
+ * name            :string:  Name displayed when choosing style.
+ * form            :string:  Drupal FAPI callback for admin form.
+ * js_folder       :string:  Folder to recursively include .js files from.
+ * css_folder      :string:  Folder to recursively include .css files from.
+ * js_files        :array:   Individual JS files to include.
+ * css_files       :array:   Individual CSS files to include.
+ * js_settings     :string:  Function to generate settings to pass to JS.
+ * use_libraries   :boolean: TRUE if uses libraries module to load.
+ * library         :string:  Name that the libraries module uses to load.
+ * jquery_version  :float:   Minimum jQuery version required for this style.
  */
 function hook_responsive_menus_style_info() {
   $path = drupal_get_path('module', 'responsive_menus');
@@ -51,6 +54,9 @@ function hook_responsive_menus_style_info() {
       ),
       'css_files' => array($path . '/css/example.css'),
       'js_settings' => 'example_style_js_settings',
+      'use_libraries' => TRUE,
+      'library' => 'ExampleLibraryFolderName',
+      'jquery_version' => 1.7,
     ),
   );
 

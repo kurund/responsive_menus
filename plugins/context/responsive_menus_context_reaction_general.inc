@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Extends class context_reaction for Responsive Menus.
+ */
 
 /**
  * Exposes Responsive Menus as a reaction in Context.
@@ -24,7 +28,7 @@ class responsive_menus_context_reaction_general extends context_reaction {
   /**
    * Execute & make those menus responsive.
    */
-  function execute(&$vars) {
+  function execute() {
     $contexts = context_active_contexts();
     foreach ($contexts as $name => $value) {
       if (!empty($value->reactions[$this->plugin])) {
