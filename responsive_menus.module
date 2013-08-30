@@ -553,7 +553,7 @@ function responsive_menus_codrops_responsive_multi_style_settings() {
       'dl-animate-in-4' => t('Four'),
       'dl-animate-in-5' => t('Five'),
     ),
-    '#default_value' => variable_get('responsive_menus_codrops_responsive_multi_ani_in', 1),
+    '#default_value' => variable_get('responsive_menus_codrops_responsive_multi_ani_in', 'dl-animate-in-1'),
   );
   $form['responsive_menus_codrops_responsive_multi_ani_out'] = array(
     '#type' => 'select',
@@ -565,9 +565,8 @@ function responsive_menus_codrops_responsive_multi_style_settings() {
       'dl-animate-out-4' => t('Four'),
       'dl-animate-out-5' => t('Five'),
     ),
-    '#default_value' => variable_get('responsive_menus_codrops_responsive_multi_ani_out', 1),
+    '#default_value' => variable_get('responsive_menus_codrops_responsive_multi_ani_out', 'dl-animate-out-1'),
   );
-
 
   return $form;
 }
