@@ -29,10 +29,12 @@
             var $parent_ul = $(this).find('ul:not(.contextual-links)').first();
             $parent_ul
               .attr('class', 'dl-menu')
-              .attr('id', 'rm-dl-menu');
+              .attr('id', 'rm-dl-menu')
+              .find('li').removeAttr('id').removeAttr('class')
+              .find('a').removeAttr('id').removeAttr('class');
             // Add submenu classes.
             $parent_ul.find('ul').each(function(subIndex, subMenu) {
-              $(this).addClass('dl-submenu');
+              $(this).removeAttr('id').attr('class', 'dl-submenu');
             });
             // Call the ResponsiveMultiLevelMenu dlmenu function.
             $(this).dlmenu({

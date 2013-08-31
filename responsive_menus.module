@@ -105,7 +105,8 @@ function responsive_menus_libraries_info() {
     'version arguments' => array(
       'file' => 'js/jquery.dlmenu.js',
       'pattern' => '/v([\d\.]+)/',
-      'lines' => 2
+      'lines' => 3,
+      'columns' => 40,
     ),
     'files' => array(
       'js' => array(
@@ -270,7 +271,7 @@ function responsive_menus_style_load($style) {
       if (module_exists('libraries')) {
         if ($library = libraries_load($style_info['library'])) {
           if (!empty($library['error']) || empty($library['loaded'])) {
-            drupal_set_message(t('!message !link and extract to your libraries directory as "@library_name". Example: sites/all/libraries/@library_name', array('!message' => $library['error message'], '@library_name' => $style_info['library'], '!link' => l(t('Download it'), $library['download url']))), 'warning');
+            drupal_set_message(t('!message !link and extract to your libraries directory as "@library_name". Example: sites/all/libraries/@library_name.  If you are getting "version detection" errors, check file permissions on the library.', array('!message' => $library['error message'], '@library_name' => $style_info['library'], '!link' => l(t('Download it'), $library['download url']))), 'warning');
             $error = TRUE;
           }
         }
@@ -685,6 +686,9 @@ function responsive_menus_execute($style = NULL, $js_defaults = array()) {
     $style = variable_get('responsive_menus_style', 'responsive_menus_simple');
   }
   $style_info = responsive_menus_style_load($style);
+  if (!$style_info) {
+    return;
+  }
   $data = &drupal_static(__FUNCTION__, array());
   if (!isset($data['execute_index'])) {
     $data['execute_index'] = -1;
