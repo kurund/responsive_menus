@@ -319,10 +319,10 @@ function responsive_menus_responsive_menus_style_info() {
       'name' => t('Mean Menu'),
       'form' => 'responsive_menus_mean_menu_style_settings',
       'js_files' => array(
-        $path . '/mean_menu/js/jquery.meanmenu.2.0.min.js',
-        $path . '/mean_menu/js/responsive_menus_mean_menu.js',
+        $path . '/meanMenu/jquery.meanmenu.min.js',
+        $path . '/meanMenu/responsive_menus_mean_menu.js',
       ),
-      'css_files' => array($path . '/mean_menu/css/meanmenu.css'),
+      'css_files' => array($path . '/meanMenu/meanmenu.min.css'),
       'js_settings' => 'responsive_menus_mean_menu_style_js_settings',
       'jquery_version' => 1.7,
     ),

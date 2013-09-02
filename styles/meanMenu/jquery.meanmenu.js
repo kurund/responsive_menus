@@ -1,5 +1,5 @@
 /**
- * jQuery meanMenu v2.0
+ * jQuery meanMenu v2.0.2
  * Copyright (C) 2012-2013 Chris Wharton (themes@meanthemes.com)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@
     $.fn.meanmenu = function (options) {
         var defaults = {
             meanMenuTarget: jQuery(this), // Target the current HTML markup you wish to replace
+            meanMenuContainer: 'body', // Choose where meanmenu will be placed within the HTML
             meanMenuClose: "X", // single character you want to represent the close menu button
             meanMenuCloseSize: "18px", // set font size of close button
             meanMenuOpen: "<span /><span /><span />", // text/markup you want when menu is closed
@@ -48,7 +49,7 @@
 
         return this.each(function () {
             var meanMenu = options.meanMenuTarget;
-            var meanReveal = options.meanReveal;
+            var meanContainer = options.meanMenuContainer;
             var meanMenuClose = options.meanMenuClose;
             var meanMenuCloseSize = options.meanMenuCloseSize;
             var meanMenuOpen = options.meanMenuOpen;
@@ -118,7 +119,7 @@
             //re-instate original nav (and call this on window.width functions)
             function meanOriginal() {
             	jQuery('.mean-bar,.mean-push').remove();
-            	jQuery('body').removeClass("mean-container");
+            	jQuery(meanContainer).removeClass("mean-container");
             	jQuery(meanMenu).show();
             	menuOn = false;
             	meanMenuExist = false;
@@ -129,7 +130,7 @@
                 if (currentWidth <= meanScreenWidth) {
                 	meanMenuExist = true;
                 	// add class to body so we don't need to worry about media queries here, all CSS is wrapped in '.mean-container'
-                	jQuery('body').addClass("mean-container");
+                	jQuery(meanContainer).addClass("mean-container");
                 	jQuery('.mean-container').prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="'+meanStyles+'">Show Navigation</a><nav class="mean-nav"></nav></div>');
 
                     //push meanMenu navigation into .mean-nav
@@ -157,13 +158,13 @@
                     $navreveal = jQuery(meanRevealClass);
 
                     //hide mean-nav ul
-                    jQuery('.mean-nav ul').hide();
+                    jQuery('.mean-nav ul:not(.contextual-links)').hide();
 
                     // hide sub nav
 	                   if(meanShowChildren) {
 	                   		// allow expandable sub nav(s)
 	                       if(meanExpandableChildren){
-		                       jQuery('.mean-nav ul ul').each(function() {
+		                       jQuery('.mean-nav ul:not(.contextual-links) ul').each(function() {
 		                           if(jQuery(this).children().length){
 		                               jQuery(this,'li:first').parent().append('<a class="mean-expand" href="#" style="font-size: '+ meanMenuCloseSize +'">'+ meanExpand +'</a>');
 		                           }
@@ -172,25 +173,22 @@
 		                       		e.preventDefault();
 		                       	   if (jQuery(this).hasClass("mean-clicked")) {
 		                       	   		jQuery(this).text(meanExpand);
-		                               jQuery(this).prev('ul').slideUp(300, function(){
-
-		                               });
+		                               jQuery(this).prev('ul').slideUp(300, function(){});
 		                           } else {
 		                           		jQuery(this).text(meanContract);
-		                           		jQuery(this).prev('ul').slideDown(300, function(){
-		                           		});
+		                           		jQuery(this).prev('ul').slideDown(300, function(){});
 		                           }
 		                           jQuery(this).toggleClass("mean-clicked");
 		                       });
 	                       } else {
-	                           jQuery('.mean-nav ul ul').show();
+	                           jQuery('.mean-nav ul:not(.contextual-links) ul').show();
 	                       }
 	                   } else {
-	                       jQuery('.mean-nav ul ul').hide();
+	                       jQuery('.mean-nav ul:not(.contextual-links) ul').hide();
 	                   }
 
                     // add last class to tidy up borders
-                    jQuery('.mean-nav ul li').last().addClass('mean-last');
+                    jQuery('.mean-nav ul:not(.contextual-links) li').last().addClass('mean-last');
 
                     $navreveal.removeClass("meanclose");
                     jQuery($navreveal).click(function(e){
@@ -199,10 +197,10 @@
 	                        $navreveal.css("text-align", "center");
 	                        $navreveal.css("text-indent", "0");
 	                        $navreveal.css("font-size", meanMenuCloseSize);
-	                        jQuery('.mean-nav ul:first').slideDown();
+	                        jQuery('.mean-nav ul:not(.contextual-links):first').slideDown();
 	                        menuOn = true;
 	                    } else {
-	                    	jQuery('.mean-nav ul:first').slideUp();
+	                    	jQuery('.mean-nav ul:not(.contextual-links):first').slideUp();
 	                    	menuOn = false;
 	                    }
                         $navreveal.toggleClass("meanclose");
