@@ -311,8 +311,8 @@ function responsive_menus_responsive_menus_style_info() {
     'responsive_menus_simple' => array(
       'name' => t("Simple 3-bar (!bars) expanding.", array('!bars' => '☰')),
       'form' => 'responsive_menus_simple_style_settings',
-      'js_folder' => $path . '/responsive_menus_simple/js',
-      'css_folder' => $path . '/responsive_menus_simple/css',
+      'js_files' => array($path . '/responsive_menus_simple/js/responsive_menus_simple.js'),
+      'css_files' => array($path . '/responsive_menus_simple/css/responsive_menus_simple.css'),
       'js_settings' => 'responsive_menus_simple_style_js_settings',
     ),
     'mean_menu' => array(
