@@ -48,7 +48,11 @@
         currentWidth = window.innerWidth || document.documentElement.clientWidth;
 
         return this.each(function () {
+            // For Drupal, track the original menu, but make a clone and remove
+            // ul.contextual links for removal of the responsive version.
             var meanMenu = options.meanMenuTarget;
+            var meanMenuClone = options.meanMenuTarget.clone();
+            meanMenuClone.find('.contextual-links-wrapper').remove().find('ul.contextual-links').remove();
             var meanContainer = options.meanMenuContainer;
             var meanMenuClose = options.meanMenuClose;
             var meanMenuCloseSize = options.meanMenuCloseSize;
@@ -134,7 +138,7 @@
                 	jQuery('.mean-container').prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="'+meanStyles+'">Show Navigation</a><nav class="mean-nav"></nav></div>');
 
                     //push meanMenu navigation into .mean-nav
-                    var meanMenuContents = jQuery(meanMenu).html();
+                    var meanMenuContents = jQuery(meanMenuClone).html();
                     jQuery('.mean-nav').html(meanMenuContents);
 
             		// remove all classes from EVERYTHING inside meanmenu nav
@@ -158,13 +162,13 @@
                     $navreveal = jQuery(meanRevealClass);
 
                     //hide mean-nav ul
-                    jQuery('.mean-nav ul:not(.contextual-links)').hide();
+                    jQuery('.mean-nav ul').hide();
 
                     // hide sub nav
 	                   if(meanShowChildren) {
 	                   		// allow expandable sub nav(s)
 	                       if(meanExpandableChildren){
-		                       jQuery('.mean-nav ul:not(.contextual-links) ul').each(function() {
+		                       jQuery('.mean-nav ul ul').each(function() {
 		                           if(jQuery(this).children().length){
 		                               jQuery(this,'li:first').parent().append('<a class="mean-expand" href="#" style="font-size: '+ meanMenuCloseSize +'">'+ meanExpand +'</a>');
 		                           }
@@ -181,14 +185,14 @@
 		                           jQuery(this).toggleClass("mean-clicked");
 		                       });
 	                       } else {
-	                           jQuery('.mean-nav ul:not(.contextual-links) ul').show();
+	                           jQuery('.mean-nav ul ul').show();
 	                       }
 	                   } else {
-	                       jQuery('.mean-nav ul:not(.contextual-links) ul').hide();
+	                       jQuery('.mean-nav ul ul').hide();
 	                   }
 
                     // add last class to tidy up borders
-                    jQuery('.mean-nav ul:not(.contextual-links) li').last().addClass('mean-last');
+                    jQuery('.mean-nav ul li').last().addClass('mean-last');
 
                     $navreveal.removeClass("meanclose");
                     jQuery($navreveal).click(function(e){
@@ -197,10 +201,10 @@
 	                        $navreveal.css("text-align", "center");
 	                        $navreveal.css("text-indent", "0");
 	                        $navreveal.css("font-size", meanMenuCloseSize);
-	                        jQuery('.mean-nav ul:not(.contextual-links):first').slideDown();
+	                        jQuery('.mean-nav ul:first').slideDown();
 	                        menuOn = true;
 	                    } else {
-	                    	jQuery('.mean-nav ul:not(.contextual-links):first').slideUp();
+	                    	jQuery('.mean-nav ul:first').slideUp();
 	                    	menuOn = false;
 	                    }
                         $navreveal.toggleClass("meanclose");
