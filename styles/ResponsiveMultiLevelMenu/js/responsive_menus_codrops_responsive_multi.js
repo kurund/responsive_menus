@@ -35,6 +35,8 @@
             // Add submenu classes.
             $parent_ul.find('ul').each(function(subIndex, subMenu) {
               $(this).removeAttr('id').attr('class', 'dl-submenu');
+              $subnav_link = $(this).parent('li').find('a').first()[0].outerHTML;
+              $(this).prepend('<li>' + $subnav_link + '</li>');
             });
             // Call the ResponsiveMultiLevelMenu dlmenu function.
             $(this).dlmenu({
@@ -51,4 +53,3 @@
     }
   };
 }(jQuery));
-
