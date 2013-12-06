@@ -94,6 +94,14 @@ function responsive_menus_context_plugins() {
 }
 
 /**
+ * Implements hook_enable().
+ */
+function responsive_menus_enable() {
+  // Need to clear caches for Context to see our new reaction.
+  cache_clear_all('plugins:context:plugins', 'cache');
+}
+
+/**
  * Implements hook_libraries_info().
  * @note : Libraries 2.x
  */
@@ -423,7 +431,7 @@ function responsive_menus_simple_style_settings() {
   $form['responsive_menus_css_selectors'] = array(
     '#type' => 'textarea',
     '#title' => t('Selectors for which menus to responsify'),
-    '#default_value' => variable_get('responsive_menus_css_selectors', '.main-menu'),
+    '#default_value' => variable_get('responsive_menus_css_selectors', '#main-menu'),
     '#description' => 'Enter CSS/jQuery selectors of menus to responsify.  Comma separated or 1 per line',
   );
   $form['responsive_menus_simple_text'] = array(
@@ -477,7 +485,7 @@ function responsive_menus_mean_menu_style_settings() {
   $form['responsive_menus_mean_menu_css_selectors'] = array(
     '#type' => 'textfield',
     '#title' => t('CSS selectors for which menu to responsify'),
-    '#default_value' => variable_get('responsive_menus_mean_menu_css_selectors', '.main-menu'),
+    '#default_value' => variable_get('responsive_menus_mean_menu_css_selectors', '#main-menu'),
     '#description' => 'Enter CSS/jQuery selector of menus to responsify.',
   );
   $form['responsive_menus_mean_menu_trigger_txt'] = array(
@@ -565,7 +573,7 @@ function responsive_menus_mean_menu_style_settings() {
 function responsive_menus_mean_menu_style_js_settings($js_defaults = array()) {
   $js_settings = array();
 
-  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_mean_menu_css_selectors', '.main-menu', $js_defaults);
+  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_mean_menu_css_selectors', '#main-menu', $js_defaults);
   $js_settings['trigger_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_trigger_txt', '<span /><span /><span />', $js_defaults);
   $js_settings['close_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_close_txt', 'X', $js_defaults);
   $js_settings['close_size'] = responsive_menus_var_get('responsive_menus_mean_menu_close_size', '18px', $js_defaults);
@@ -590,7 +598,7 @@ function responsive_menus_codrops_responsive_multi_style_settings() {
   $form['responsive_menus_codrops_responsive_multi_css_selectors'] = array(
     '#type' => 'textfield',
     '#title' => t('CSS selectors for which menu to responsify'),
-    '#default_value' => variable_get('responsive_menus_codrops_responsive_multi_css_selectors', '.main-menu'),
+    '#default_value' => variable_get('responsive_menus_codrops_responsive_multi_css_selectors', '#main-menu'),
     '#description' => 'Enter CSS/jQuery selector of menus to responsify.',
   );
   $form['responsive_menus_codrops_responsive_multi_media_size'] = array(
@@ -634,7 +642,7 @@ function responsive_menus_codrops_responsive_multi_style_settings() {
 function responsive_menus_codrops_responsive_multi_style_js_settings($js_defaults = array()) {
   $js_settings = array();
 
-  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_css_selectors', '.main-menu', $js_defaults);
+  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_css_selectors', '#main-menu', $js_defaults);
   $js_settings['media_size'] = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_media_size', 768, $js_defaults);
   $js_settings['animation_in'] = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_ani_in', 'dl-animate-in-1', $js_defaults);
   $js_settings['animation_out'] = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_ani_out', 'dl-animate-out-1', $js_defaults);
@@ -652,7 +660,7 @@ function responsive_menus_sidr_style_settings() {
   $form['responsive_menus_sidr_css_selectors'] = array(
     '#type' => 'textfield',
     '#title' => t('CSS selectors for which menu to responsify'),
-    '#default_value' => variable_get('responsive_menus_sidr_css_selectors', '.main-menu'),
+    '#default_value' => variable_get('responsive_menus_sidr_css_selectors', '#main-menu'),
     '#description' => 'Enter CSS/jQuery selector of menus to responsify.',
   );
   $form['responsive_menus_sidr_trigger_txt'] = array(
@@ -718,7 +726,7 @@ function responsive_menus_sidr_style_settings() {
 function responsive_menus_sidr_style_js_settings($js_defaults = array()) {
   $js_settings = array();
 
-  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_sidr_css_selectors', '.main-menu', $js_defaults);
+  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_sidr_css_selectors', '#main-menu', $js_defaults);
   $js_settings['trigger_txt'] = responsive_menus_var_get('responsive_menus_sidr_trigger_txt', t('Menu'), $js_defaults);
   $js_settings['side'] = responsive_menus_var_get('responsive_menus_sidr_menu_side', array('left' => 'Left'), $js_defaults);
   $js_settings['speed'] = responsive_menus_var_get('responsive_menus_sidr_animation_speed', 200, $js_defaults);
@@ -753,7 +761,7 @@ function responsive_menus_var_get($name, $default, $rm_defaults = array()) {
  *   Array of settings to pass with drupal_add_js().
  */
 function responsive_menus_build_selectors($style_var, $js_defaults = array()) {
-  $selectors = responsive_menus_var_get($style_var, '.main-menu', $js_defaults);
+  $selectors = responsive_menus_var_get($style_var, '#main-menu', $js_defaults);
   $delimiter = ', ';
   // Strip out carriage returns.
   $selectors = str_replace("\r", '', $selectors);
