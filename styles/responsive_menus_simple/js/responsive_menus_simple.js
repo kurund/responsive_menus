@@ -38,6 +38,12 @@
    * Store classes & IDs for restoring later (if window dragging).
    */
   function store_classes_ids(menuElement) {
+    if (!$(menuElement).attr('id')) {
+      $(menuElement).attr('id', 'rm-no-id');
+    }
+    if (!$(menuElement).attr('class')) {
+      $(menuElement).attr('class', 'rm-no-class');
+    }
     $(menuElement).data('removeattr', true)
       .data('rmids', $(menuElement).attr('id'))
       .data('rmclasses', $(menuElement).attr('class'));
