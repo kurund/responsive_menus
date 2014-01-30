@@ -24,11 +24,11 @@
           $(this).find('a').each(function(a_ind) {
             if (iteration.icons[a_ind]) {
               // Un-escape unicode or html entities.
-              var $icon = $('<div />').html(JSON.parse('"'+iteration.icons[a_ind]+'"')).text();
+              var $icon = $('<div />').html(JSON.parse('"' + iteration.icons[a_ind] + '"')).text();
               $(this).attr('data-content', $icon);
             }
             else {
-              $icon = $('<div />').html(JSON.parse('"'+iteration.icon_fallback+'"')).text();
+              $icon = $('<div />').html(JSON.parse('"' + iteration.icon_fallback + '"')).text();
               $(this).attr('data-content', $icon);
             }
           });
@@ -59,4 +59,3 @@
     }
   };
 }(jQuery));
-

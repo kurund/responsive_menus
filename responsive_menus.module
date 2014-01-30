@@ -94,14 +94,6 @@ function responsive_menus_context_plugins() {
 }
 
 /**
- * Implements hook_enable().
- */
-function responsive_menus_enable() {
-  // Need to clear caches for Context to see our new reaction.
-  cache_clear_all('plugins:context:plugins', 'cache');
-}
-
-/**
  * Implements hook_libraries_info().
  * @note : Libraries 2.x
  */
@@ -889,9 +881,10 @@ function responsive_menus_glob_recursive($directory, &$directories = array()) {
  *   Array of matching files.
  */
 function responsive_menus_glob_files($directory, $extension) {
+  $directories = (empty($directories) ? array() : $directories);
   responsive_menus_glob_recursive($directory, $directories);
   $files = array();
-  foreach ($directories as $key => $directory) {
+  foreach ($directories as $directory) {
     $files = array_merge($files, glob("{$directory}/*.{$extension}"));
   }
 
