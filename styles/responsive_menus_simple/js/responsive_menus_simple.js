@@ -81,14 +81,14 @@
   Drupal.behaviors.responsive_menus = {
     attach: function (context, settings) {
       settings.responsive_menus = settings.responsive_menus || {};
-      // Window width with legacy browsers.
-      var windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
       $('body').once('responsive-menus-load', function() {
         // Only doing this themes that don't include a viewport attribute.
         // e.g. Bartik for testing out-of-the-box... yeah, stupid.
         if (!$('meta[name=viewport]').length > 0) {
           $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
         }
+        // Window width with legacy browsers.
+        var windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
         $.each(settings.responsive_menus, function(ind, iteration) {
           if (iteration.responsive_menus_style != 'responsive_menus_simple') {
             return true;
