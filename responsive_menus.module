@@ -415,7 +415,7 @@ function responsive_menus_responsive_menus_style_info() {
       'js_settings' => 'responsive_menus_sidr_style_js_settings',
       'use_libraries' => TRUE,
       'library' => 'sidr',
-      'selector' => t('Anything.  Example: Given <code>@code</code> you could use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>#parent-div or .menu</strong>')),
+      'selector' => t('Anything (parent of ul preferred).  Example: Given <code>@code</code> you could use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>#parent-div or .menu</strong>')),
     ),
     'google_nexus' => array(
       'name' => t('Google Nexus (codrops)'),
@@ -685,10 +685,10 @@ function responsive_menus_codrops_responsive_multi_style_js_settings($js_default
  */
 function responsive_menus_sidr_style_settings() {
   $form['responsive_menus_sidr_css_selectors'] = array(
-    '#type' => 'textfield',
+    '#type' => 'textarea',
     '#title' => t('CSS selectors for which menu to responsify'),
     '#default_value' => variable_get('responsive_menus_sidr_css_selectors', '#main-menu'),
-    '#description' => t('Enter CSS/jQuery selector of menus to responsify.'),
+    '#description' => t('Enter CSS/jQuery selectors of menus to responsify.  Comma separated or 1 per line'),
   );
   $form['responsive_menus_sidr_trigger_txt'] = array(
     '#type' => 'textarea',
@@ -720,13 +720,13 @@ function responsive_menus_sidr_style_settings() {
   );
   $form['responsive_menus_sidr_on_open'] = array(
     '#type' => 'textarea',
-    '#title' => t('onOpen callback (function) - Currently not working!'),
+    '#title' => t('onOpen callback (function)'),
     '#description' => t('See !documentation for examples.', array('!documentation' => l(t('Sidr documentation'), 'http://www.berriart.com/sidr/#documentation'))),
     '#default_value' => variable_get('responsive_menus_sidr_on_open', ''),
   );
   $form['responsive_menus_sidr_on_close'] = array(
     '#type' => 'textarea',
-    '#title' => t('onClose callback (function) - Currently not working!'),
+    '#title' => t('onClose callback (function)'),
     '#description' => t('See !documentation for examples.', array('!documentation' => l(t('Sidr documentation'), 'http://www.berriart.com/sidr/#documentation'))),
     '#default_value' => variable_get('responsive_menus_sidr_on_close', ''),
   );
@@ -753,7 +753,7 @@ function responsive_menus_sidr_style_settings() {
 function responsive_menus_sidr_style_js_settings($js_defaults = array()) {
   $js_settings = array();
 
-  $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_sidr_css_selectors', '#main-menu', $js_defaults);
+  $js_settings['selectors'] = responsive_menus_explode_list('responsive_menus_sidr_css_selectors', '#main-menu', $js_defaults);
   $js_settings['trigger_txt'] = responsive_menus_var_get('responsive_menus_sidr_trigger_txt', t('Menu'), $js_defaults);
   $js_settings['side'] = responsive_menus_var_get('responsive_menus_sidr_menu_side', array('left' => 'Left'), $js_defaults);
   $js_settings['speed'] = responsive_menus_var_get('responsive_menus_sidr_animation_speed', 200, $js_defaults);
