@@ -718,6 +718,16 @@ function responsive_menus_sidr_style_settings() {
     '#default_value' => variable_get('responsive_menus_sidr_media_size', 768),
     '#description' => t('Width in pixels when we swap out responsive menu e.g. 768'),
   );
+  $form['responsive_menus_sidr_displace'] = array(
+    '#type' => 'select',
+    '#title' => t('Displace body content?'),
+    '#options' => array(
+      1 => t('Yes'),
+      0 => t('No'),
+    ),
+    '#default_value' => variable_get('responsive_menus_sidr_displace', 1),
+    '#description' => t('This setting controls whether the page is pushed when menu is opened.'),
+  );
   $form['responsive_menus_sidr_on_open'] = array(
     '#type' => 'textarea',
     '#title' => t('onOpen callback (function)'),
@@ -758,6 +768,7 @@ function responsive_menus_sidr_style_js_settings($js_defaults = array()) {
   $js_settings['side'] = responsive_menus_var_get('responsive_menus_sidr_menu_side', array('left' => 'Left'), $js_defaults);
   $js_settings['speed'] = responsive_menus_var_get('responsive_menus_sidr_animation_speed', 200, $js_defaults);
   $js_settings['media_size'] = responsive_menus_var_get('responsive_menus_sidr_media_size', 768, $js_defaults);
+  $js_settings['displace'] = responsive_menus_var_get('responsive_menus_sidr_displace', 1, $js_defaults);
   $js_settings['onOpen'] = responsive_menus_var_get('responsive_menus_sidr_on_open', '', $js_defaults);
   $js_settings['onClose'] = responsive_menus_var_get('responsive_menus_sidr_on_close', '', $js_defaults);
 

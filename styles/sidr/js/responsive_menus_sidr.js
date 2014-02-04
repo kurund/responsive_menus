@@ -19,16 +19,28 @@
         $('#' + $wrapper_id).show();
         $(this).hide();
       }
+      // Set 1/0 to true/false respectively.
+      $.each(iteration, function(key, value) {
+        if (value == 0) {
+          iteration[key] = false;
+        }
+        if (value == 1) {
+          iteration[key] = true;
+        }
+      });
+      // Sidr power go.
       $('#' + $id + '-button').sidr({
         name: $id || "sidr",
         speed: iteration.speed || 200,
         side: iteration.side || "left",
         source: iteration.selectors[ind] || "#main-menu",
+        displace: iteration.displace,
         onOpen: function() { eval(iteration.onOpen); } || function() {},
         onClose: function() { eval(iteration.onClose); } || function() {}
       });
     });
   }
+
 
   /**
    * Main loop.
