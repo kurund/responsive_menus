@@ -102,8 +102,12 @@
           var toggler_text = iteration.toggler_text;
           // Iterate through our selectors.
           $.each(iteration.selectors, function(index, value) {
+            // Stop if there is no menu element.
+            if ($(value).length < 1) {
+              return true;
+            }
+            // Handle nested menus.  Make sure we get the first, but not children.
             if ($(value).length > 1) {
-              // Handle nested menus.  Make sure we get the first, but not children.
               $(value).each(function(val_index) {
                 if (!$(this).parents('ul').length) {
                   if (!$(this).hasClass('responsive-menus-simple')) {
@@ -176,7 +180,7 @@
           // Window width with legacy browsers.
           windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
           $('.responsive-menus').each(function(menuIndex, menuValue) {
-            mediasize = $(this).data('mediasize') || 768;
+            var mediasize = $(this).data('mediasize') || 768;
             // Prevent menu from going off the screen.  This only happens in
             // non-responsive themes (like Bartik default), but it looks bad.
             if ($(this).width() > windowWidth) {
@@ -185,10 +189,10 @@
             }
             var menuElement = $(this).find('.responsive-menus-simple');
             if (windowWidth > mediasize) {
-              if ($(menuElement).data('removeattr')) {
-                $(menuElement).addClass($(menuElement).data('rmclasses'));
-                $(menuElement).attr('id', $(menuElement).data('rmids'));
-                $(menuElement).find('ul').each(function() {
+              if (menuElement.data('removeattr')) {
+                menuElement.addClass(menuElement.data('rmclasses'));
+                menuElement.attr('id', menuElement.data('rmids'));
+                menuElement.find('ul').each(function() {
                   $(this).addClass($(this).data('rmclasses'));
                   $(this).attr('id', $(this).data('rmids'));
                 });
@@ -201,7 +205,7 @@
               if ($(this).data('nonresponsive') && $(this).width() < windowWidth) {
                 $(this).width(windowWidth);
               }
-              if ($(menuElement).data('removeattr')) {
+              if (menuElement.data('removeattr')) {
                 remove_classes_ids(menuElement);
               }
               $(this).addClass('responsified');
