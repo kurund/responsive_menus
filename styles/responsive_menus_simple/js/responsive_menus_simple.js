@@ -129,7 +129,7 @@
                       $('.' + toggler_class).addClass('absolute');
                     }
                     // Handle first size check.
-                    if (windowWidth < $media_size) {
+                    if (windowWidth <= $media_size) {
                       // Remove attributes setting.
                       if (iteration.remove_attributes) {
                         remove_classes_ids(this);
@@ -164,7 +164,7 @@
                   $('.' + toggler_class).addClass('absolute');
                 }
                 // Handle first size check.
-                if (windowWidth < $media_size) {
+                if (windowWidth <= $media_size) {
                   // Remove attributes setting.
                   if (iteration.remove_attributes) {
                     remove_classes_ids(value);
@@ -188,7 +188,7 @@
               $(this).width(windowWidth);
             }
             var menuElement = $(this).find('.responsive-menus-simple');
-            if (windowWidth > mediasize) {
+            if (windowWidth >= mediasize) {
               if (menuElement.data('removeattr')) {
                 menuElement.addClass(menuElement.data('rmclasses'));
                 menuElement.attr('id', menuElement.data('rmids'));
@@ -199,7 +199,7 @@
               }
               $(this).removeClass('responsified');
             }
-            if (windowWidth < mediasize) {
+            if (windowWidth <= mediasize) {
               // Now fix repercussions for handling non-responsive themes above.
               // Stretch width back out w/ the screen.
               if ($(this).data('nonresponsive') && $(this).width() < windowWidth) {
