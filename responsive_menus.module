@@ -202,6 +202,12 @@ function responsive_menus_admin_form($form, &$form_state) {
     '#options' => array(1 => t('I will provide my own jQuery library.')),
     '#default_value' => variable_get('responsive_menus_no_jquery_update', array(1 => 0)),
   );
+  // Ignore admin pages option.
+  $form['responsive_menus_ignore_admin'] = array(
+    '#type' => 'checkboxes',
+    '#options' => array(1 => t('Ignore admin pages?')),
+    '#default_value' => variable_get('responsive_menus_ignore_admin', array(1 => 1)),
+  );
   $jq_update_ignore = $form['responsive_menus_no_jquery_update']['#default_value'];
   $style_info = responsive_menus_style_load($current_style, $jq_update_ignore);
 
@@ -225,12 +231,12 @@ function responsive_menus_admin_form($form, &$form_state) {
     '#type' => 'fieldset',
     '#tree' => TRUE,
   );
-
+  // Which selector to use info.
   if (!empty($style_info['selector'])) {
     $form['responsive_menus_style_settings']['selector_info'] = array(
       '#type' => 'item',
       '#title' => t('Selector(s) to use for this style:'),
-      '#markup' => $style_info['selector'],
+      '#markup' => '<div class="messages status">' . $style_info['selector'] . '</div>',
     );
   }
   // Build additional style settings from style plugins.
@@ -240,12 +246,6 @@ function responsive_menus_admin_form($form, &$form_state) {
       $form['responsive_menus_style_settings'][$name] = $element;
     }
   }
-
-  $form['responsive_menus_ignore_admin'] = array(
-    '#type' => 'checkboxes',
-    '#options' => array(1 => t('Ignore admin pages?')),
-    '#default_value' => variable_get('responsive_menus_ignore_admin', array(1 => 1)),
-  );
 
   $form['actions']['#type'] = 'actions';
   $form['actions']['submit'] = array(
@@ -269,7 +269,7 @@ function responsive_menus_style_settings_form($form, $form_state) {
 }
 
 /**
- * Submit handler for resopnsive_menus_admin_form.
+ * Submit handler for responsive_menus_admin_form.
  */
 function responsive_menus_admin_form_submit($form, &$form_state) {
   // Exclude unnecessary elements.
