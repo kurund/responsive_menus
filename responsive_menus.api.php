@@ -46,8 +46,8 @@ function hook_responsive_menus_style_info() {
     'example_style' => array(
       'name' => t('Example Responsive Menus style'),
       'form' => 'example_style_settings',
-      'js_folder' => drupal_get_path('module', 'responsive_menus') . '/js',
-      'css_folder' => drupal_get_path('module', 'responsive_menus') . '/css',
+      'js_folder' => $path . '/js',
+      'css_folder' => $path . '/css',
       'js_files' => array(
         $path . '/js/example1.js',
         $path . '/js/example2.js',
