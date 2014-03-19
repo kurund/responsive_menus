@@ -319,6 +319,7 @@ function responsive_menus_style_load($style, $jq_update_ignore) {
   $data = &drupal_static(__FUNCTION__, array());
   if (!isset($data[$style]) && !empty($styles[$style])) {
     $style_info = $styles[$style];
+    // @todo module_load_include() the .inc file for the style being loaded.
     // Check for this style's requirements.
     if (!empty($style_info['jquery_version'])) {
       if (!$jq_update_ignore[1]) {
@@ -386,6 +387,7 @@ function responsive_menus_responsive_menus_style_info() {
       'js_files' => array($path . '/responsive_menus_simple/js/responsive_menus_simple.js'),
       'css_files' => array($path . '/responsive_menus_simple/css/responsive_menus_simple.css'),
       'js_settings' => 'responsive_menus_simple_style_js_settings',
+      'file' => $path . '/responsive_menus_simple/responsive_menus_simple.inc',
       'selector' => t('Anything.  Example: Given <code>@code</code> you could use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>#parent-div or .menu</strong>')),
     ),
     'mean_menu' => array(
@@ -398,6 +400,7 @@ function responsive_menus_responsive_menus_style_info() {
       'css_files' => array($path . '/meanMenu/meanmenu.min.css'),
       'js_settings' => 'responsive_menus_mean_menu_style_js_settings',
       'jquery_version' => 1.7,
+      'file' => $path . '/meanMenu/meanMenu.inc',
       'selector' => t('Parent of the @ul.  Example: Given <code>@code</code> you would use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>#parent-div</strong>')),
     ),
     'codrops_responsive_multi' => array(
@@ -407,6 +410,7 @@ function responsive_menus_responsive_menus_style_info() {
       'use_libraries' => TRUE,
       'library' => 'ResponsiveMultiLevelMenu',
       'jquery_version' => 1.7,
+      'file' => $path . '/ResponsiveMultiLevelMenu/ResponsiveMultiLevelMenu.inc',
       'selector' => t('Parent of the @ul.  Example: Given <code>@code</code> you would use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>#parent-div</strong>')),
     ),
     'sidr' => array(
@@ -415,6 +419,7 @@ function responsive_menus_responsive_menus_style_info() {
       'js_settings' => 'responsive_menus_sidr_style_js_settings',
       'use_libraries' => TRUE,
       'library' => 'sidr',
+      'file' => $path . '/sidr/sidr.inc',
       'selector' => t('Anything (parent of ul preferred).  Example: Given <code>@code</code> you could use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>#parent-div or .menu</strong>')),
     ),
     'google_nexus' => array(
@@ -423,6 +428,7 @@ function responsive_menus_responsive_menus_style_info() {
       'js_settings' => 'responsive_menus_google_nexus_style_js_settings',
       'use_libraries' => TRUE,
       'library' => 'GoogleNexusWebsiteMenu',
+      'file' => $path . '/google_nexus/google_nexus.inc',
       'selector' => t('The @ul.  Example: Given <code>@code</code> you would use !use', array('@ul' => '<ul>', '@code' => '<div id="parent-div"> <ul class="menu"> </ul> </div>', '!use' => '<strong>.menu</strong>')),
     ),
   );
