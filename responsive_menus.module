@@ -328,7 +328,7 @@ function responsive_menus_style_load($style, $jq_update_ignore) {
           drupal_set_message(t('@style style requires !link set to version !version or higher.  Please enable jquery_update.', array('@style' => $style_info['name'], '!link' => l(t('jQuery Update'), 'http://drupal.org/project/jquery_update'), '!version' => $style_info['jquery_version'])), 'warning');
           $error = TRUE;
         }
-        elseif (variable_get('jquery_update_jquery_version', 1.5) < $style_info['jquery_version']) {
+        elseif ((variable_get('jquery_update_jquery_version', 1.5) < $style_info['jquery_version']) && (!in_array(variable_get('jquery_update_jquery_version'), array('1.10', '1.11')))) {
           // jQuery Update version not high enough.
           drupal_set_message(t('@style style requires !link set to version !version or higher.', array('@style' => $style_info['name'], '!version' => $style_info['jquery_version'], '!link' => l(t('jQuery Update'), 'admin/config/development/jquery_update', array('query' => array('destination' => 'admin/config/user-interface/responsive_menus'))))), 'warning');
           $error = TRUE;
