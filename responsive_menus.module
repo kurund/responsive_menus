@@ -521,6 +521,12 @@ function responsive_menus_mean_menu_style_settings() {
     '#default_value' => variable_get('responsive_menus_mean_menu_css_selectors', '#main-menu'),
     '#description' => t('Enter CSS/jQuery selector of menus to responsify.'),
   );
+  $form['responsive_menus_mean_menu_container'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CSS selector for where to attach the menu on the page'),
+    '#default_value' => variable_get('responsive_menus_mean_menu_container', 'body'),
+    '#description' => t('Enter CSS/jQuery selector of where MeanMenu gets attached.'),
+  );
   $form['responsive_menus_mean_menu_trigger_txt'] = array(
     '#type' => 'textarea',
     '#title' => t('Text or HTML for trigger button'),
@@ -607,6 +613,7 @@ function responsive_menus_mean_menu_style_js_settings($js_defaults = array()) {
   $js_settings = array();
 
   $js_settings['selectors'] = responsive_menus_var_get('responsive_menus_mean_menu_css_selectors', '#main-menu', $js_defaults);
+  $js_settings['container'] = responsive_menus_var_get('responsive_menus_mean_menu_container', 'body', $js_defaults);
   $js_settings['trigger_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_trigger_txt', '<span /><span /><span />', $js_defaults);
   $js_settings['close_txt'] = responsive_menus_var_get('responsive_menus_mean_menu_close_txt', 'X', $js_defaults);
   $js_settings['close_size'] = responsive_menus_var_get('responsive_menus_mean_menu_close_size', '18px', $js_defaults);
