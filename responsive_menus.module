@@ -722,7 +722,7 @@ function responsive_menus_sidr_style_settings() {
     '#title' => t('Sidr animation speed'),
     '#size' => 5,
     '#default_value' => variable_get('responsive_menus_sidr_animation_speed', 200),
-    '#description' => t('Speed of menu open/close.  See !documentation for examples.', array('!documentation' => l(t('Sidr documentation'), 'http://www.berriart.com/sidr/#documentation'))),
+    '#description' => t('Speed (in milliseconds) of menu open/close. 1000 = 1 second.'),
   );
   $form['responsive_menus_sidr_media_size'] = array(
     '#type' => 'textfield',

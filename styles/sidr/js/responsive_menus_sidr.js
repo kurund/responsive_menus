@@ -31,7 +31,7 @@
       // Sidr power go.
       $('#' + $id + '-button').sidr({
         name: $id || "sidr",
-        speed: iteration.speed || 200,
+        speed: parseInt(iteration.speed) || 200,
         side: iteration.side || "left",
         source: iteration.selectors[ind] || "#main-menu",
         displace: iteration.displace,
