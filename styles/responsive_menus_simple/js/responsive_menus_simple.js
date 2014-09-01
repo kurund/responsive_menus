@@ -88,7 +88,7 @@
           $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
         }
         // Window width with legacy browsers.
-        var windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
+        var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         $.each(settings.responsive_menus, function(ind, iteration) {
           if (iteration.responsive_menus_style != 'responsive_menus_simple') {
             return true;
@@ -178,7 +178,7 @@
         // Handle window resizing.
         $(window).resize(function() {
           // Window width with legacy browsers.
-          windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
+          windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
           $('.responsive-menus').each(function(menuIndex, menuValue) {
             var mediasize = $(this).data('mediasize') || 768;
             // Prevent menu from going off the screen.  This only happens in
