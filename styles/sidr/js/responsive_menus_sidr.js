@@ -35,6 +35,7 @@
         side: iteration.side || "left",
         source: iteration.selectors[ind] || "#main-menu",
         displace: iteration.displace,
+        renaming: iteration.renaming,
         onOpen: function() { eval(iteration.onOpen); } || function() {},
         onClose: function() { eval(iteration.onClose); } || function() {}
       });
