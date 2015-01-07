@@ -488,9 +488,9 @@ function responsive_menus_simple_style_settings() {
  */
 function responsive_menus_simple_style_js_settings($js_defaults = array()) {
   $js_settings = array(
-    'toggler_text' = responsive_menus_var_get('responsive_menus_simple_text', '☰ Menu', $js_defaults),
-    'selectors' = responsive_menus_explode_list('responsive_menus_css_selectors', '#main-menu', $js_defaults),
-    'media_size' = responsive_menus_var_get('responsive_menus_media_size', 768, $js_defaults),
+    'toggler_text' => responsive_menus_var_get('responsive_menus_simple_text', '☰ Menu', $js_defaults),
+    'selectors' => responsive_menus_explode_list('responsive_menus_css_selectors', '#main-menu', $js_defaults),
+    'media_size' => responsive_menus_var_get('responsive_menus_media_size', 768, $js_defaults),
   );
 
   $absolute = responsive_menus_var_get('responsive_menus_simple_absolute', array(1 => 1), $js_defaults);
@@ -612,18 +612,18 @@ function responsive_menus_mean_menu_style_settings() {
  */
 function responsive_menus_mean_menu_style_js_settings($js_defaults = array()) {
   $js_settings = array(
-    'selectors' = responsive_menus_var_get('responsive_menus_mean_menu_css_selectors', '#main-menu', $js_defaults),
-    'container' = responsive_menus_var_get('responsive_menus_mean_menu_container', 'body', $js_defaults),
-    'trigger_txt' = responsive_menus_var_get('responsive_menus_mean_menu_trigger_txt', '<span /><span /><span />', $js_defaults),
-    'close_txt' = responsive_menus_var_get('responsive_menus_mean_menu_close_txt', 'X', $js_defaults),
-    'close_size' = responsive_menus_var_get('responsive_menus_mean_menu_close_size', '18px', $js_defaults),
-    'position' = responsive_menus_var_get('responsive_menus_mean_menu_position', 'right', $js_defaults),
-    'media_size' = responsive_menus_var_get('responsive_menus_mean_menu_media_size', 480, $js_defaults),
-    'show_children' = responsive_menus_var_get('responsive_menus_mean_menu_show_children', 1, $js_defaults),
-    'expand_children' = responsive_menus_var_get('responsive_menus_mean_menu_expand_children', 1, $js_defaults),
-    'expand_txt' = responsive_menus_var_get('responsive_menus_mean_menu_expand_txt', '+', $js_defaults),
-    'contract_txt' = responsive_menus_var_get('responsive_menus_mean_menu_contract_txt', '-', $js_defaults),
-    'remove_attrs' = responsive_menus_var_get('responsive_menus_mean_menu_remove_attrs', 1, $js_defaults),
+    'selectors' => responsive_menus_var_get('responsive_menus_mean_menu_css_selectors', '#main-menu', $js_defaults),
+    'container' => responsive_menus_var_get('responsive_menus_mean_menu_container', 'body', $js_defaults),
+    'trigger_txt' => responsive_menus_var_get('responsive_menus_mean_menu_trigger_txt', '<span /><span /><span />', $js_defaults),
+    'close_txt' => responsive_menus_var_get('responsive_menus_mean_menu_close_txt', 'X', $js_defaults),
+    'close_size' => responsive_menus_var_get('responsive_menus_mean_menu_close_size', '18px', $js_defaults),
+    'position' => responsive_menus_var_get('responsive_menus_mean_menu_position', 'right', $js_defaults),
+    'media_size' => responsive_menus_var_get('responsive_menus_mean_menu_media_size', 480, $js_defaults),
+    'show_children' => responsive_menus_var_get('responsive_menus_mean_menu_show_children', 1, $js_defaults),
+    'expand_children' => responsive_menus_var_get('responsive_menus_mean_menu_expand_children', 1, $js_defaults),
+    'expand_txt' => responsive_menus_var_get('responsive_menus_mean_menu_expand_txt', '+', $js_defaults),
+    'contract_txt' => responsive_menus_var_get('responsive_menus_mean_menu_contract_txt', '-', $js_defaults),
+    'remove_attrs' => responsive_menus_var_get('responsive_menus_mean_menu_remove_attrs', 1, $js_defaults),
   );
 
   return $js_settings;
@@ -682,10 +682,10 @@ function responsive_menus_codrops_responsive_multi_style_settings() {
  */
 function responsive_menus_codrops_responsive_multi_style_js_settings($js_defaults = array()) {
   $js_settings = array(
-    'selectors' = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_css_selectors', '#main-menu', $js_defaults),
-    'media_size' = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_media_size', 768, $js_defaults),
-    'animation_in' = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_ani_in', 'dl-animate-in-1', $js_defaults),
-    'animation_out' = responsive_menus_var_get('responsive_menus_codrops_responsive_multi_ani_out', 'dl-animate-out-1', $js_defaults),
+    'selectors' => responsive_menus_var_get('responsive_menus_codrops_responsive_multi_css_selectors', '#main-menu', $js_defaults),
+    'media_size' => responsive_menus_var_get('responsive_menus_codrops_responsive_multi_media_size', 768, $js_defaults),
+    'animation_in' => responsive_menus_var_get('responsive_menus_codrops_responsive_multi_ani_in', 'dl-animate-in-1', $js_defaults),
+    'animation_out' => responsive_menus_var_get('responsive_menus_codrops_responsive_multi_ani_out', 'dl-animate-out-1', $js_defaults),
   );
 
   return $js_settings;
@@ -786,15 +786,15 @@ function responsive_menus_sidr_style_settings() {
  */
 function responsive_menus_sidr_style_js_settings($js_defaults = array()) {
   $js_settings = array(
-    'selectors' = responsive_menus_explode_list('responsive_menus_sidr_css_selectors', '#main-menu', $js_defaults),
-    'trigger_txt' = responsive_menus_var_get('responsive_menus_sidr_trigger_txt', t('Menu'), $js_defaults),
-    'side' = responsive_menus_var_get('responsive_menus_sidr_menu_side', array('left' => 'Left'), $js_defaults),
-    'speed' = responsive_menus_var_get('responsive_menus_sidr_animation_speed', 200, $js_defaults),
-    'media_size' = responsive_menus_var_get('responsive_menus_sidr_media_size', 768, $js_defaults),
-    'displace' = responsive_menus_var_get('responsive_menus_sidr_displace', 1, $js_defaults),
-    'renaming' = responsive_menus_var_get('responsive_menus_sidr_renaming', 1, $js_defaults),
-    'onOpen' = responsive_menus_var_get('responsive_menus_sidr_on_open', '', $js_defaults),
-    'onClose' = responsive_menus_var_get('responsive_menus_sidr_on_close', '', $js_defaults),
+    'selectors' => responsive_menus_explode_list('responsive_menus_sidr_css_selectors', '#main-menu', $js_defaults),
+    'trigger_txt' => responsive_menus_var_get('responsive_menus_sidr_trigger_txt', t('Menu'), $js_defaults),
+    'side' => responsive_menus_var_get('responsive_menus_sidr_menu_side', array('left' => 'Left'), $js_defaults),
+    'speed' => responsive_menus_var_get('responsive_menus_sidr_animation_speed', 200, $js_defaults),
+    'media_size' => responsive_menus_var_get('responsive_menus_sidr_media_size', 768, $js_defaults),
+    'displace' => responsive_menus_var_get('responsive_menus_sidr_displace', 1, $js_defaults),
+    'renaming' => responsive_menus_var_get('responsive_menus_sidr_renaming', 1, $js_defaults),
+    'onOpen' => responsive_menus_var_get('responsive_menus_sidr_on_open', '', $js_defaults),
+    'onClose' => responsive_menus_var_get('responsive_menus_sidr_on_close', '', $js_defaults),
   );
 
   return $js_settings;
@@ -844,10 +844,10 @@ function responsive_menus_google_nexus_style_settings() {
  */
 function responsive_menus_google_nexus_style_js_settings($js_defaults = array()) {
   $js_settings = array(
-    'selectors' = responsive_menus_var_get('responsive_menus_google_nexus_css_selectors', '#main-menu', $js_defaults),
-    'use_ecoicons' = responsive_menus_var_get('responsive_menus_google_nexus_use_ecoicons', 1, $js_defaults),
-    'icons' = responsive_menus_explode_list('responsive_menus_google_nexus_icons', "\ue005\n\ue006", $js_defaults),
-    'icon_fallback' = responsive_menus_var_get('responsive_menus_google_nexus_icon_fallback', '&#57347;', $js_defaults),
+    'selectors' => responsive_menus_var_get('responsive_menus_google_nexus_css_selectors', '#main-menu', $js_defaults),
+    'use_ecoicons' => responsive_menus_var_get('responsive_menus_google_nexus_use_ecoicons', 1, $js_defaults),
+    'icons' => responsive_menus_explode_list('responsive_menus_google_nexus_icons', "\ue005\n\ue006", $js_defaults),
+    'icon_fallback' => responsive_menus_var_get('responsive_menus_google_nexus_icon_fallback', '&#57347;', $js_defaults),
   );
 
   return $js_settings;
