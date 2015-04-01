@@ -477,7 +477,14 @@ function responsive_menus_simple_style_settings() {
     '#title' => t('Screen width to respond to'),
     '#size' => 5,
     '#default_value' => variable_get('responsive_menus_media_size', 768),
-    '#description' => t('Width in pixels when we swap out responsive menu e.g. 768'),
+    '#description' => t('Width when we swap out responsive menu e.g. 768'),
+  );
+  $form['responsive_menus_media_unit'] = array(
+  '#type' => 'select',
+  '#title' => t('Width unit'),
+  '#default_value' => variable_get('responsive_menus_media_unit', 'px'),
+  '#options' => array('px' => 'px', 'em' => 'em'),
+  '#description' => t('Unit for the width above'),
   );
 
   return $form;
@@ -491,6 +498,7 @@ function responsive_menus_simple_style_js_settings($js_defaults = array()) {
     'toggler_text' => responsive_menus_var_get('responsive_menus_simple_text', '☰ Menu', $js_defaults),
     'selectors' => responsive_menus_explode_list('responsive_menus_css_selectors', '#main-menu', $js_defaults),
     'media_size' => responsive_menus_var_get('responsive_menus_media_size', 768, $js_defaults),
+    'media_unit' => responsive_menus_var_get('responsive_menus_media_unit', 'px', $js_defaults),
   );
 
   $absolute = responsive_menus_var_get('responsive_menus_simple_absolute', array(1 => 1), $js_defaults);
