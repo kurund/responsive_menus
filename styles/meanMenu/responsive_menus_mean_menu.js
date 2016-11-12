@@ -25,7 +25,6 @@
         // Call meanmenu() with our custom settings.
         $(iteration.selectors).once('responsive-menus-mean-menu', function() {
           $(this).meanmenu({
-            meanMenuContainer: iteration.container || "body",
             meanMenuClose: iteration.close_txt || "X",
             meanMenuCloseSize: iteration.close_size || "18px",
             meanMenuOpen: iteration.trigger_txt || "<span /><span /><span />",
@@ -35,7 +34,8 @@
             meanContract: iteration.contract_txt || "-",
             meanShowChildren: iteration.show_children,
             meanExpandableChildren: iteration.expand_children,
-            meanRemoveAttrs: iteration.remove_attrs
+            meanRemoveAttrs: iteration.remove_attrs,
+            onePage: iteration.one_page
           });
         });
       });
